@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letters For You</title>
+
+    <style>
+        body {
+    background-image: url("asset/2.jpeg");
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Cover Page */
+.cover-card {
+    text-align: center;
+    position: relative;
+}
+
+.envelope-big {
+    width: 220px;
+    height: 140px;
+    background-color: #d90429;
+    border-radius: 6px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(173, 152, 152, 0.15);
+}
+
+.title {
+    font-family: 'Brush Script MT', cursive, sans-serif;
+    font-size: 50px;
+    color: #b7094c;
+    margin-bottom: 20px;
+}
+
+.next-arrow {
+    background: transparent;
+    border: 2px solid #b7094c;
+    color: #b7094c;
+    font-size: 24px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.next-arrow:hover {
+    background: #b7094c;
+    color: white;
+}
+
+/* Envelopes Grid */
+.envelopes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.envelope-box {
+    cursor: pointer;
+    text-align: center;
+}
+
+.envelope {
+    width: 170px;
+    height: 110px;
+    background-color: #d90429;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.envelope:hover {
+    transform: translateY(-5px);
+}
+
+.envelope.opened {
+    background-color: #8d0801;
+    opacity: 0.7;
+}
+
+.seal {
+    background: #ffb703;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Popup Styles */
+.letter-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.letter-card {
+    width: 90%;
+    max-width: 600px;
+    padding: 40px 30px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.back-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: #ffb703;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Letter Themes */
+.red-bg {
+    background: #d90429;
+    color: white;
+}
+
+.lips-bg {
+    background: #ffe5ec;
+    color: #590d22;
+    text-align: center;
+}
+
+.letter-paper {
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.simple-bg {
+    background: #fff0f3;
+    text-align: center;
+}
+
+/* Layout Details */
+.content-flex {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.polaroid-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.polaroid {
+    background: white;
+    padding: 8px 8px 15px 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    color: #333;
+    text-align: center;
+    transform: rotate(-2deg);
+}
+
+.polaroid img {
+    width: 120px;
+    height: 130px;
+    object-fit: cover;
+}
+
+.letter-text {
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* Floating Emoji Animation */
+.floating-heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1000;
+    animation: floatUp 3s linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100vh) scale(1.3);
+        opacity: 0;
+    }
+}
+    </style>
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="../css/love.css">
+
+    
+
+     <!-- google font cnd link-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=bitcount+prop+si">
+
+ <!--font awesome cnd link-->
+    <link rel="stylesheet" href="https:cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+</head>
+<body>
+
+    <!-- Cover Page -->
+    <div id="coverPage" class="page-section">
+        <div class="cover-card">
+            <div class="envelope-big">
+                <div class="seal">❤️</div>
+            </div>
+            <h1 class="title">Letters for you</h1>
+            <button class="next-arrow" onclick="showGrid()">➜</button>
+        </div>
+    </div>
+
+    <!-- Grid Page with 4 Letters -->
+    <div id="gridPage" class="page-section hidden">
+        <h1>Letters for you</h1>
+        <div class="envelopes-grid">
+            <div class="envelope-box" onclick="openLetter(1)">
+                <div class="envelope" id="env1"><div class="seal">❤️</div></div>
+                <p id="label1">Letter 1</p>
+            </div>
+            <div class="envelope-box" onclick="openLetter(2)">
+                <div class="envelope" id="env2"><div class="seal">❤️</div></div>
+                <p id="label2">Letter 2</p>
+            </div>
+            <div class="envelope-box" onclick="openLetter(3)">
+                <div class="envelope" id="env3"><div class="seal">❤️</div></div>
+                <p id="label3">Letter 3</p>
+            </div>
+            <div class="envelope-box" onclick="openLetter(4)">
+                <div class="envelope" id="env4"><div class="seal">❤️</div></div>
+                <p id="label4">Letter 4</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Letter 1 Content -->
+    <div id="letter1" class="letter-modal hidden">
+        <div class="letter-card red-bg">
+            <button class="back-btn" onclick="closeLetter(1)">BACK ➜</button>
+            <div class="content-flex">
+                <div class="polaroid">
+                    <img src="asset/7.jpeg" alt="Photo 1">
+                    <p>Together🥰</p>
+                </div>
+                <div class="text-right">
+                    <h2>HAPPY WEDDING ANNIVERSARY</h2>
+                    <p>Hamesha khush rho dono ✨</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Letter 2 Content -->
+    <div id="letter2" class="letter-modal hidden">
+        <div class="letter-card lips-bg">
+            <button class="back-btn" onclick="closeLetter(2)">BACK ➜</button>
+            <h2>MASHALLAH😊</h2>
+            <div class="polaroid-row">
+                <div class="polaroid"><img src="asset/6.jpeg" alt="Memory"><p>Together😍</p></div>
+                <div class="polaroid"><img src="asset/10.jpeg" alt="Memory"><p>Best Times🥰</p></div>
+                <div class="polaroid"><img src="asset/11.jpeg" alt="Memory"><p>Forever🫀</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Letter 3 Content -->
+    <div id="letter3" class="letter-modal hidden">
+        <div class="letter-card letter-paper">
+            <button class="back-btn" onclick="closeLetter(3)">BACK ➜</button>
+            <h3>To my Dearest APPI and HASAN BHAI</h3>
+            <p class="letter-text">
+                Wishing u both a lifetime of togetherness,happiness and eternal love. seeing u both together brings so much joy to our hearts. <br><br> 
+                may your bond grow stronger with every passing day,filled with endless laughter, sweet memories, and always support each other. <br><br>
+                <b>YOU TWO MAKE THE MOST BEAUTIFULL COUPLE! HAPPY ANNIVERSARY TO MY FAVORITE COUPLE!
+                    bs itrana ni dono ❤️</b>
+            </p>
+        </div>
+    </div>
+
+    <!-- Letter 4 Content -->
+    <div id="letter4" class="letter-modal hidden">
+        <div class="letter-card simple-bg">
+            <button class="back-btn" onclick="closeLetter(4)">BACK ➜</button>
+            <div class="end-message">
+                <h2>smile💗</h2>
+                <p>May all your wishes come true! ✨</p>
+            </div>
+        </div>
+    </div>
+
+   <!-- JavaScript Logic for all Letters with Different Emojis -->
+    <script>
+        function showGrid() {
+            document.getElementById('coverPage').classList.add('hidden');
+            document.getElementById('gridPage').classList.remove('hidden');
+        }
+
+        function openLetter(num) {
+            document.getElementById('letter' + num).classList.remove('hidden');
+            document.getElementById('env' + num).classList.add('opened');
+            document.getElementById('label' + num).innerText = 'Opened';
+
+            // Har letter ke liye alag floating emojis
+            if (num === 1) {
+                createEmojis(['❤️', '💖', '💕', '💗', '✨']);
+            } else if (num === 2) {
+                createEmojis(['💋', '😘', '🥰', '💓', '✨']);
+            } else if (num === 3) {
+                createEmojis(['💖', '✨', '⭐', '💫', '🌹']);
+            } else if (num === 4) {
+                createEmojis(['😍', '🥳', '🎉', '💘', '💞']);
+            }
+        }
+
+        function closeLetter(num) {
+            document.getElementById('letter' + num).classList.add('hidden');
+        }
+
+        // Floating Animation Function
+        function createEmojis(emojiList) {
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.classList.add('floating-heart');
+                    emoji.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+                    
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    emoji.style.fontSize = (Math.random() * 15 + 20) + 'px';
+
+                    document.body.appendChild(emoji);
+
+                    setTimeout(() => {
+                        emoji.remove();
+                    }, 4000);
+                }, i * 150);
+            }
+        }
+    </script>
+</body>
+</html>
